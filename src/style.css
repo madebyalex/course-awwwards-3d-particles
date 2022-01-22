@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #000000;
+  font-size: 1rem;
+}
+
+canvas {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#controls {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#controls button {
+  background-color: rgba(255, 255, 255, 0.25);
+  padding: 1em 1.2em;
+  border: none;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  font-size: 0.88rem;
+  border-radius: 0.3em;
+  transition: background-color 0.3s ease-out;
+  margin: 0 0.2em;
+}
+
+#controls button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#controls button:active {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(1px) scale(0.99);
+}
