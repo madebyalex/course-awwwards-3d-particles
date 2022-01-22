@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 3d-particles
 *A starter repository from the Awwwards workshop class "Impress everyone with a 3D particle scene starting from bad models"*
 
@@ -70,3 +71,6 @@ void main() {
 
 ## Troubleshooting
 - [Troubleshooting installing Node](https://github.com/mattdesl/bartlett-dfpi/blob/362ac5b0ef5d195114f496284f11798b2ca0fd05/guides/node-and-npm.md#troubleshooting-eaccess-errors)
+=======
+# course-awwwards-3d-particles
+>>>>>>> fcd5c2cea7445990d736fb8b769270fabe53610b
