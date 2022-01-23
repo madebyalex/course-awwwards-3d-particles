@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import gsap from 'gsap';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler';
@@ -55,6 +56,7 @@ class Model {
           uColor1: { value: new THREE.Color(this.color1) },
           uColor2: { value: new THREE.Color(this.color2) },
           uTime: { value: 0 },
+          uScale: { value: 0 },
         },
         vertexShader: vertex,
         fragmentShader: fragment,
@@ -70,6 +72,7 @@ class Model {
 
       this.particlesGeometry = new THREE.BufferGeometry();
       const particlesPosition = new Float32Array(numParticles * 3);
+      const partcileRandomness = new Float32Array(numParticles * 3);
 
       for (let i = 0; i < numParticles; i++) {
         const newPosition = new THREE.Vector3();
@@ -78,11 +81,20 @@ class Model {
           [newPosition.x, newPosition.y, newPosition.z],
           i * 3
         );
+
+        partcileRandomness.set(
+          [Math.random() * 2 - 1, Math.random() * 2 - 1, Math.random() * 2 - 1],
+          i * 3
+        );
       }
 
       this.particlesGeometry.setAttribute(
         'position',
         new THREE.BufferAttribute(particlesPosition, 3)
+      );
+      this.particlesGeometry.setAttribute(
+        'aRandom',
+        new THREE.BufferAttribute(partcileRandomness, 3)
       );
 
       console.log(this.particlesGeometry);
@@ -101,13 +113,23 @@ class Model {
   }
 
   add() {
-    this.scene.add(this.particles);
     this.isActive = true;
+    this.scene.add(this.particles);
+    gsap.to(this.particlesMaterial.uniforms.uScale, {
+      value: 1,
+      ease: 'back.out',
+      duration: 1.0,
+    });
   }
 
   remove() {
-    this.scene.remove(this.particles);
-    this.isActive = false;
+    gsap.to(this.particlesMaterial.uniforms.uScale, {
+      value: 0,
+      onComplete: () => {
+        this.isActive = false;
+        this.scene.remove(this.particles);
+      },
+    });
   }
 }
 

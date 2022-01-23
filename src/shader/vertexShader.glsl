@@ -1,5 +1,9 @@
+attribute vec3 aRandom;
+
 varying vec3 vPosition;
+
 uniform float uTime;
+uniform float uScale;
 
 void main() {
     vPosition = position;
@@ -7,8 +11,16 @@ void main() {
     vec3 pos = position;
 
     // Rotating a model around Y axis
-    pos.x += sin(uTime * 0.8);
-    pos.z += cos(uTime * 0.8);
+    // pos.x += sin(uTime * 0.8);
+    // pos.z += cos(uTime * 0.8);
+
+    float time = uTime * 5.0;
+
+    pos.x += sin(time * aRandom.x) * 0.01;
+    pos.y += cos(time * aRandom.y) * 0.01;
+    pos.z += cos(time * aRandom.z) * 0.01;
+
+    pos *= uScale;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
     gl_Position = projectionMatrix * mvPosition;
