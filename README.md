@@ -6,7 +6,7 @@ _Following the Awwwards masterclass "Impress everyone with a 3D particle scene s
 
 ## Show me the results!
 
-[Demo link](https://madebyalex.github.io/course-awwwards-3d-particles/dist/)
+[Demo link](https://madebyalex.github.io/course-awwwards-3d-particles/)
 
 ---
 
