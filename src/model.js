@@ -19,6 +19,8 @@ class Model {
     this.color1 = obj.color1;
     this.color2 = obj.color2;
 
+    this.background = obj.background;
+
     this.loader = new GLTFLoader();
     this.dracoLoader = new DRACOLoader();
     this.dracoLoader.setDecoderPath('./draco/');
@@ -113,22 +115,48 @@ class Model {
   }
 
   add() {
-    this.isActive = true;
     this.scene.add(this.particles);
+
     gsap.to(this.particlesMaterial.uniforms.uScale, {
       value: 1,
       ease: 'back.out',
+      delay: 0.3,
       duration: 1.0,
     });
+
+    gsap.to('body', { backgroundColor: this.background, duration: 0.8 });
+
+    if (!this.isActive) {
+      gsap.fromTo(
+        this.particles.rotation,
+        {
+          y: Math.PI,
+        },
+        {
+          y: 0,
+          duration: 0.8,
+          ease: 'back.out',
+        }
+      );
+    }
+
+    this.isActive = true;
   }
 
   remove() {
     gsap.to(this.particlesMaterial.uniforms.uScale, {
       value: 0,
+      autoAlpha: 0,
       onComplete: () => {
         this.isActive = false;
         this.scene.remove(this.particles);
       },
+    });
+
+    gsap.to(this.particles.rotation, {
+      y: Math.PI,
+      duration: 0.8,
+      ease: 'power3.out',
     });
   }
 }

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import gsap from 'gsap';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Model from './model';
 
@@ -39,6 +40,7 @@ const material = new THREE.MeshBasicMaterial({
 OrbitControls
 ------------------------------*/
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.enabled = false;
 
 /*------------------------------
 Helpers
@@ -51,21 +53,23 @@ Helpers
 /*------------------------------
 Models
 ------------------------------*/
-const skull = new Model({
-  name: 'skull',
+const model1 = new Model({
+  name: 'model1',
   file: './models/skull.glb',
   scene: scene,
   placeOnLoad: true,
   color1: 'red',
   color2: 'yellow',
+  background: '#47001b',
 });
 
-const horse = new Model({
-  name: 'horse',
+const model2 = new Model({
+  name: 'model2',
   file: './models/horse.glb',
   scene: scene,
   color1: 'blue',
   color2: 'pink',
+  background: '#110047',
 });
 
 /*------------------------------
@@ -74,13 +78,13 @@ Controls
 const buttons = document.querySelectorAll('#controls button');
 
 buttons[0].addEventListener('click', () => {
-  skull.add();
-  horse.remove();
+  model1.add();
+  model2.remove();
 });
 
 buttons[1].addEventListener('click', () => {
-  skull.remove();
-  horse.add();
+  model1.remove();
+  model2.add();
 });
 
 /*------------------------------
@@ -95,12 +99,12 @@ const animate = function () {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
 
-  if (skull.isActive) {
-    skull.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime();
+  if (model1.isActive) {
+    model1.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime();
   }
 
-  if (horse.isActive) {
-    horse.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime();
+  if (model2.isActive) {
+    model2.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime();
   }
 };
 animate();
@@ -114,3 +118,20 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 window.addEventListener('resize', onWindowResize, false);
+
+/*------------------------------
+Mouse Move
+------------------------------*/
+function onMouseMove(e) {
+  // console.log(e.clientX);
+
+  const x = e.clientX;
+  const y = e.clientY;
+
+  gsap.to(scene.rotation, {
+    y: gsap.utils.mapRange(0, window.innerWidth, 0.75, -0.75, x),
+    x: gsap.utils.mapRange(0, window.innerHeight, 0.2, -0.2, y),
+  });
+}
+
+window.addEventListener('mousemove', onMouseMove);
