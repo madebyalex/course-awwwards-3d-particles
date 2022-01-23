@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler';
+import vertex from './shader/vertexShader.glsl';
+import fragment from './shader/fragmentShader.glsl';
 
 class Model {
   constructor(obj) {
@@ -10,6 +12,11 @@ class Model {
     this.file = obj.file;
     this.scene = obj.scene;
     this.placeOnLoad = obj.placeOnLoad;
+
+    this.isActive = false;
+
+    this.color1 = obj.color1;
+    this.color2 = obj.color2;
 
     this.loader = new GLTFLoader();
     this.dracoLoader = new DRACOLoader();
@@ -37,9 +44,24 @@ class Model {
       this.geometry = this.mesh.geometry;
 
       // Particles material
-      this.particlesMaterial = new THREE.PointsMaterial({
-        color: '#1597FB',
-        size: 0.02,
+
+      // this.particlesMaterial = new THREE.PointsMaterial({
+      //   color: '#1597FB',
+      //   size: 0.02,
+      // });
+
+      this.particlesMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+          uColor1: { value: new THREE.Color(this.color1) },
+          uColor2: { value: new THREE.Color(this.color2) },
+          uTime: { value: 0 },
+        },
+        vertexShader: vertex,
+        fragmentShader: fragment,
+        transparent: true,
+        depthTest: false,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
       });
 
       // Particles geometry
@@ -80,10 +102,12 @@ class Model {
 
   add() {
     this.scene.add(this.particles);
+    this.isActive = true;
   }
 
   remove() {
     this.scene.remove(this.particles);
+    this.isActive = false;
   }
 }
 

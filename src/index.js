@@ -56,12 +56,16 @@ const skull = new Model({
   file: './models/skull.glb',
   scene: scene,
   placeOnLoad: true,
+  color1: 'red',
+  color2: 'yellow',
 });
 
 const horse = new Model({
   name: 'horse',
   file: './models/horse.glb',
   scene: scene,
+  color1: 'blue',
+  color2: 'pink',
 });
 
 /*------------------------------
@@ -80,11 +84,24 @@ buttons[1].addEventListener('click', () => {
 });
 
 /*------------------------------
+Clock
+------------------------------*/
+const clock = new THREE.Clock();
+
+/*------------------------------
 Loop
 ------------------------------*/
 const animate = function () {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
+
+  if (skull.isActive) {
+    skull.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime();
+  }
+
+  if (horse.isActive) {
+    horse.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime();
+  }
 };
 animate();
 

@@ -1,6 +1,6 @@
 # Experimenting with 3D particles & Three.js
 
-_Following the Awwwards workshop class "Impress everyone with a 3D particle scene starting from bad models"_
+_Following the Awwwards masterclass "Impress everyone with a 3D particle scene starting from bad models"_
 
 ---
 
@@ -37,7 +37,7 @@ that will open a new window on your browser http://localhost:8080/
 
 ## Links
 
-### 🤓 Dev
+### Dev
 
 - [Node.js](https://nodejs.org/it/)
 - [Parcel.js](https://parceljs.org/)
@@ -49,14 +49,14 @@ that will open a new window on your browser http://localhost:8080/
 - [VisualCode](https://code.visualstudio.com/)
   - [Shader languages support for VS Code - Extension](https://marketplace.visualstudio.com/items?itemName=slevesque.shader)
 
-### 🗿 3D
+### 3D
 
 - [Blender](https://www.blender.org/)
 - [Free3d](https://free3d.com/)
 - [Skull 3D Model](https://free3d.com/3d-model/skull-v3--785914.html)
 - [Horse 3D Model](https://free3d.com/3d-model/american-paint-horse-nuetral-v1--575385.html)
 
-### 🪄 Further Readings
+### Further Readings
 
 - [The Book of Shaders](https://thebookofshaders.com/)
 - [Three.js Foundamentals](https://threejsfundamentals.org/)
@@ -64,30 +64,6 @@ that will open a new window on your browser http://localhost:8080/
 
 ---
 
-### 📝 Vertex Shader Sample
+### Troubleshooting
 
-```
-void main() {
-  vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-  gl_Position = projectionMatrix * mvPosition;
-  gl_PointSize = 8.0 / -mvPosition.z;
-}
-```
-
-### 📝 Fragment Shader Sample
-
-```
-void main() {
- gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-}
-```
-
----
-
-## Troubleshooting
-
-- # [Troubleshooting installing Node](https://github.com/mattdesl/bartlett-dfpi/blob/362ac5b0ef5d195114f496284f11798b2ca0fd05/guides/node-and-npm.md#troubleshooting-eaccess-errors)
-
-# course-awwwards-3d-particles
-
-> > > > > > > fcd5c2cea7445990d736fb8b769270fabe53610b
+- [Troubleshooting installing Node](https://github.com/mattdesl/bartlett-dfpi/blob/362ac5b0ef5d195114f496284f11798b2ca0fd05/guides/node-and-npm.md#troubleshooting-eaccess-errors)
